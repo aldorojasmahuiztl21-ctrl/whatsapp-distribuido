@@ -1,0 +1,19 @@
+{
+  "name": "whatsapp-distribuido",
+  "version": "1.0.0",
+  "description": "Sistema de Chat Distribuido tipo WhatsApp Web con Socket.io, Redis y MySQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js 5001"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^4.22.3",
+    "ioredis": "^5.11.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.24.6",
+    "nodemailer": "^10.6.0",
+    "socket.io": "^4.8.4",
+    "twilio": "^6.3.1"
+  }
+}
