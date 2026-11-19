@@ -76,10 +76,3 @@ CREATE TABLE IF NOT EXISTS estado_vistas (
 INSERT IGNORE INTO chats (id, nombre, es_grupo) VALUES (1, 'Grupo SO2 (Distribuido)', TRUE);
 
 
-sudo service redis-server start
-
-cd C:\Users\aldoc\whatsapp-distribuido
-node server.js 5001
-
-cd C:\Users\aldoc\whatsapp-distribuido
-node server.js 5002
