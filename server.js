@@ -124,8 +124,7 @@ sub.on('error', (err) => {
   console.error('Error en Redis sub:', err.message);
 });
 
-const pub = new Redis({ host: REDIS_HOST, port: REDIS_PORT });
-const sub = new Redis({ host: REDIS_HOST, port: REDIS_PORT });
+
 
 sub.subscribe('canal_whatsapp_distribuido', 'canal_eventos_whatsapp');
 sub.on('message', (channel, messageStr) => {
