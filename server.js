@@ -26,11 +26,16 @@ const NOMBRE_NODO = `Nodo-${PUERTO}`;
 
 const db = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 4000,
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'whatsapp_db',
   waitForConnections: true,
-  connectionLimit: 30
+  connectionLimit: 30,
+  ssl: {
+    minVersion: 'TLSv1.2',
+    rejectUnauthorized: true
+  }
 });
 
 async function verificarEsquemaBD() {
