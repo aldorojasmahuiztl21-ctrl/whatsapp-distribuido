@@ -98,8 +98,31 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 app.use(express.static(path.join(__dirname, 'public')));
 
+const REDIS_URL = process.env.REDIS_URL;
 const REDIS_HOST = process.env.REDIS_HOST || '127.0.0.1';
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const REDIS_PORT = Number(process.env.REDIS_PORT) || 6379;
+const REDIS_PASSWORD = process.env.REDIS_PASSWORD || undefined;
+const REDIS_TLS = process.env.REDIS_TLS === 'true';
+
+const redisConfig = REDIS_URL
+  ? REDIS_URL
+  : {
+      host: REDIS_HOST,
+      port: REDIS_PORT,
+      ...(REDIS_PASSWORD ? { password: REDIS_PASSWORD } : {}),
+      ...(REDIS_TLS ? { tls: {} } : {})
+    };
+
+const pub = new Redis(redisConfig);
+const sub = new Redis(redisConfig);
+
+pub.on('error', (err) => {
+  console.error('Error en Redis pub:', err.message);
+});
+
+sub.on('error', (err) => {
+  console.error('Error en Redis sub:', err.message);
+});
 
 const pub = new Redis({ host: REDIS_HOST, port: REDIS_PORT });
 const sub = new Redis({ host: REDIS_HOST, port: REDIS_PORT });
