@@ -5,10 +5,11 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body {
+html, body {
   background-color: #0b141a;
   color: #e9edef;
-  min-height: 100dvh;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -20,51 +21,54 @@ body {
 #auth-modal {
   position: fixed;
   inset: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(11, 20, 26, 0.96);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px;
+  padding: 4%;
   z-index: 1000;
 }
 
 .auth-card {
   background: #202c33;
-  padding: 28px 20px;
+  padding: 6% 5%;
   border-radius: 12px;
-  width: 100%;
-  max-width: 380px;
-  max-height: 92dvh;
+  width: 92%;
+  max-width: 420px;
+  max-height: 92%;
   overflow-y: auto;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .auth-logo {
-  width: 72px;
-  height: 72px;
+  width: 20%;
+  max-width: 76px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
   border-radius: 50%;
-  margin: 0 auto 12px auto;
+  margin: 0 auto 3% auto;
   display: block;
 }
 
 .auth-card h2 {
-  margin-bottom: 10px;
+  margin-bottom: 3%;
   color: #e9edef;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .auth-card p {
-  font-size: 14px;
+  font-size: 0.9rem;
   color: #8696a0;
-  margin-bottom: 18px;
+  margin-bottom: 4.5%;
 }
 
 .auth-input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
+  padding: 3.2% 3.8%;
+  margin-bottom: 3.2%;
   border-radius: 8px;
   border: 1px solid #2a3942;
   background: #111b21;
@@ -79,14 +83,14 @@ body {
 
 .auth-btn {
   width: 100%;
-  padding: 12px;
+  padding: 3.4% 4%;
   border: none;
   border-radius: 8px;
   background: #00a884;
   color: #111b21;
   font-weight: bold;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 0.95rem;
 }
 
 .auth-btn:hover {
@@ -95,22 +99,25 @@ body {
 
 .auth-error {
   color: #f15c6d;
-  font-size: 13px;
-  margin-bottom: 10px;
+  font-size: 0.85rem;
+  margin-bottom: 3%;
   display: none;
 }
 
-/* --- LAYOUT PRINCIPAL --- */
+/* --- LAYOUT PRINCIPAL EN PORCENTAJES --- */
 #app-container {
   display: flex;
-  height: 100dvh;
+  height: 100%;
   width: 100%;
   overflow: hidden;
 }
 
 /* --- BARRA NAVEGACIÓN IZQUIERDA --- */
 #nav-rail {
-  width: 64px;
+  width: 6%;
+  min-width: 54px;
+  max-width: 72px;
+  height: 100%;
   flex-shrink: 0;
   background: #202c33;
   border-right: 1px solid #2a3942;
@@ -118,27 +125,29 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 0;
+  padding: 2% 0;
   z-index: 20;
 }
 
 .nav-top, .nav-bottom {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
 }
 
 .nav-icon {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 72%;
+  max-width: 44px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.2rem;
   color: #aebac1;
   transition: background 0.2s;
 }
@@ -154,11 +163,11 @@ body {
 
 .nav-badge {
   position: absolute;
-  top: 2px;
-  right: 0px;
+  top: 0;
+  right: 0;
   background: #00a884;
   color: #111b21;
-  font-size: 11px;
+  font-size: 0.7rem;
   font-weight: bold;
   min-width: 18px;
   height: 18px;
@@ -173,8 +182,8 @@ body {
 
 .nav-dot {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 10%;
+  right: 10%;
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -183,8 +192,8 @@ body {
 }
 
 .avatar-mini {
-  width: 36px;
-  height: 36px;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
   background: #005c4b;
   color: #e9edef;
@@ -192,7 +201,7 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.85rem;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -205,18 +214,19 @@ body {
 
 /* --- PANEL LATERAL --- */
 #side-panel {
-  width: 340px;
+  width: 28%;
+  height: 100%;
   flex-shrink: 0;
   background: #111b21;
   border-right: 1px solid #2a3942;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .panel {
   display: none;
   flex-direction: column;
+  width: 100%;
   height: 100%;
 }
 
@@ -225,32 +235,35 @@ body {
 }
 
 .panel-header {
-  height: 60px;
-  padding: 0 14px;
+  height: 9%;
+  min-height: 56px;
+  max-height: 66px;
+  width: 100%;
+  padding: 0 4%;
   background: #202c33;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 2%;
 }
 
 .panel-title-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
 }
 
 .panel-header-logo {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
 .panel-header h2 {
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -263,7 +276,7 @@ body {
 }
 
 .nodo-badge {
-  font-size: 11px;
+  font-size: 0.7rem;
   background: #005c4b;
   color: #e9edef;
   padding: 4px 8px;
@@ -276,7 +289,7 @@ body {
   background: transparent;
   border: none;
   color: #aebac1;
-  font-size: 18px;
+  font-size: 1.1rem;
   cursor: pointer;
   padding: 6px;
   border-radius: 50%;
@@ -297,18 +310,19 @@ body {
 
 .mobile-back-btn {
   display: none;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bold;
 }
 
 .search-box {
-  padding: 8px 12px;
+  width: 100%;
+  padding: 2.5% 3.5%;
   border-bottom: 1px solid #202c33;
 }
 
 .search-box input {
   width: 100%;
-  padding: 9px 12px;
+  padding: 2.5% 3.5%;
   border-radius: 8px;
   border: none;
   background: #202c33;
@@ -319,14 +333,16 @@ body {
 
 .list-container {
   flex: 1;
+  width: 100%;
   overflow-y: auto;
 }
 
 .list-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 3.5%;
+  width: 100%;
+  padding: 3.5% 4.5%;
   cursor: pointer;
   border-bottom: 1px solid #182229;
   transition: background 0.15s;
@@ -341,8 +357,10 @@ body {
 }
 
 .avatar {
-  width: 46px;
-  height: 46px;
+  width: 14%;
+  min-width: 42px;
+  max-width: 48px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: #005c4b;
   color: #e9edef;
@@ -350,7 +368,7 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 1rem;
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -367,7 +385,7 @@ body {
 }
 
 .item-title {
-  font-size: 15px;
+  font-size: 0.95rem;
   font-weight: 500;
   color: #e9edef;
   white-space: nowrap;
@@ -376,7 +394,7 @@ body {
 }
 
 .item-subtitle {
-  font-size: 13px;
+  font-size: 0.82rem;
   color: #8696a0;
   white-space: nowrap;
   overflow: hidden;
@@ -398,7 +416,7 @@ body {
 }
 
 .chat-time {
-  font-size: 11px;
+  font-size: 0.72rem;
   color: #8696a0;
 }
 
@@ -410,7 +428,7 @@ body {
 .unread-badge {
   background: #00a884;
   color: #111b21;
-  font-size: 11px;
+  font-size: 0.72rem;
   font-weight: bold;
   min-width: 20px;
   height: 20px;
@@ -426,7 +444,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
+  width: 100%;
+  padding: 4% 4.5%;
   border-bottom: 1px solid #202c33;
   cursor: pointer;
 }
@@ -438,33 +457,35 @@ body {
 .my-status-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 3.5%;
   flex: 1;
   min-width: 0;
 }
 
 .my-status-avatar-wrap {
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 14%;
+  min-width: 44px;
+  max-width: 50px;
+  aspect-ratio: 1 / 1;
   flex-shrink: 0;
 }
 
 .my-status-avatar-wrap .avatar {
-  width: 48px;
-  height: 48px;
+  width: 100%;
+  height: 100%;
 }
 
 .my-status-plus-badge {
   position: absolute;
-  bottom: -1px;
-  right: -1px;
+  bottom: 0;
+  right: 0;
   width: 18px;
   height: 18px;
   border-radius: 50%;
   background: #00a884;
   color: #111b21;
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -479,7 +500,7 @@ body {
   border: 1px solid #2a3942;
   background: #202c33;
   color: #00a884;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   display: flex;
@@ -493,8 +514,8 @@ body {
 }
 
 .status-section-label {
-  padding: 12px 16px 6px 16px;
-  font-size: 12px;
+  padding: 3% 4.5% 1.5% 4.5%;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #00a884;
   text-transform: uppercase;
@@ -504,8 +525,9 @@ body {
 .status-user-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 11px 16px;
+  gap: 3.5%;
+  width: 100%;
+  padding: 3.2% 4.5%;
   cursor: pointer;
   border-bottom: 1px solid #182229;
 }
@@ -536,18 +558,20 @@ body {
 
 /* --- PERFIL PANEL --- */
 .profile-content {
-  padding: 24px 20px;
+  padding: 6% 5%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   overflow-y: auto;
 }
 
 .profile-avatar-wrapper {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 38%;
+  max-width: 130px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
@@ -561,7 +585,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 42px;
+  font-size: 2.4rem;
   font-weight: bold;
 }
 
@@ -578,7 +602,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 0.8rem;
   opacity: 0;
   transition: opacity 0.2s;
 }
@@ -595,21 +619,22 @@ body {
 }
 
 .profile-field label {
-  font-size: 12px;
+  font-size: 0.78rem;
   color: #00a884;
 }
 
 .profile-static-value {
-  font-size: 15px;
+  font-size: 0.95rem;
   color: #e9edef;
-  padding: 6px 0;
+  padding: 2% 0;
   border-bottom: 1px solid #202c33;
   word-break: break-word;
 }
 
 .profile-desc-row {
   display: flex;
-  gap: 8px;
+  gap: 2.5%;
+  width: 100%;
 }
 
 .profile-desc-row input {
@@ -618,7 +643,7 @@ body {
   background: #202c33;
   border: 1px solid #2a3942;
   color: #e9edef;
-  padding: 8px 10px;
+  padding: 2.5% 3%;
   border-radius: 6px;
   font-size: 16px;
   outline: none;
@@ -629,16 +654,16 @@ body {
   color: #111b21;
   border: none;
   border-radius: 6px;
-  padding: 0 14px;
+  padding: 0 4%;
   font-weight: bold;
   cursor: pointer;
   flex-shrink: 0;
 }
 
 #btn-logout {
-  margin-top: 10px;
+  margin-top: 2%;
   width: 100%;
-  padding: 11px;
+  padding: 3.2%;
   border: none;
   border-radius: 8px;
   background: #ea4335;
@@ -654,6 +679,7 @@ body {
 /* --- ÁREA PRINCIPAL DE CHAT --- */
 #chat-area {
   flex: 1;
+  width: 66%;
   min-width: 0;
   height: 100%;
   display: flex;
@@ -665,13 +691,16 @@ body {
 }
 
 #chat-header {
-  min-height: 60px;
+  height: 9%;
+  min-height: 56px;
+  max-height: 66px;
+  width: 100%;
   background: #202c33;
-  padding: 0 14px;
+  padding: 0 3%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 2%;
   border-bottom: 1px solid #2a3942;
 }
 
@@ -680,22 +709,24 @@ body {
   align-items: center;
   gap: 10px;
   min-width: 0;
+  width: 88%;
 }
 
 .chat-header-left > div:last-child {
   min-width: 0;
+  flex: 1;
 }
 
 #chat-header-nombre {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 0.95rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 #chat-header-sub {
-  font-size: 12px;
+  font-size: 0.78rem;
   color: #8696a0;
   white-space: nowrap;
   overflow: hidden;
@@ -711,12 +742,12 @@ body {
   display: none;
   position: absolute;
   right: 0;
-  top: 42px;
+  top: 110%;
   background: #233138;
   border: 1px solid #2a3942;
   border-radius: 8px;
   width: 210px;
-  max-width: 85vw;
+  max-width: 80vw;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
   z-index: 100;
   overflow: hidden;
@@ -724,7 +755,7 @@ body {
 
 .dropdown-item {
   padding: 12px 16px;
-  font-size: 14px;
+  font-size: 0.88rem;
   cursor: pointer;
   color: #e9edef;
 }
@@ -740,7 +771,8 @@ body {
 /* --- MENSAJES --- */
 #chat-box {
   flex: 1;
-  padding: 14px 4%;
+  width: 100%;
+  padding: 2.5% 4%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -750,6 +782,7 @@ body {
 .msg-row {
   display: flex;
   flex-direction: column;
+  width: auto;
   max-width: 78%;
   position: relative;
   transition: background 0.4s ease;
@@ -772,18 +805,19 @@ body {
   position: relative;
   display: flex;
   align-items: flex-start;
+  width: 100%;
 }
 
 .msg-bubble {
   padding: 8px 12px;
   border-radius: 8px;
-  font-size: 14.5px;
+  font-size: 0.92rem;
   line-height: 1.4;
   word-wrap: break-word;
   overflow-wrap: anywhere;
   position: relative;
+  width: 100%;
   min-width: 84px;
-  max-width: 100%;
 }
 
 .msg-row.sent .msg-bubble {
@@ -808,7 +842,7 @@ body {
   border: none;
   background: rgba(17, 27, 33, 0.55);
   color: #e9edef;
-  font-size: 14px;
+  font-size: 0.85rem;
   line-height: 1;
   cursor: pointer;
   display: none;
@@ -845,7 +879,7 @@ body {
   color: #e9edef;
   padding: 9px 14px;
   text-align: left;
-  font-size: 13.5px;
+  font-size: 0.85rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -863,6 +897,7 @@ body {
   padding: 6px 8px;
   margin-bottom: 6px;
   cursor: pointer;
+  width: 100%;
 }
 
 .msg-row.sent .quoted-msg-box {
@@ -870,7 +905,7 @@ body {
 }
 
 .quoted-msg-sender {
-  font-size: 11.5px;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #00a884;
   margin-bottom: 2px;
@@ -881,19 +916,20 @@ body {
 }
 
 .quoted-msg-text {
-  font-size: 12.5px;
+  font-size: 0.8rem;
   color: #d1d7db;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 220px;
+  max-width: 100%;
 }
 
 .reply-preview-bar {
   background: #202c33;
   border-left: 4px solid #00a884;
   border-top: 1px solid #2a3942;
-  padding: 8px 14px;
+  padding: 8px 3%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -906,14 +942,14 @@ body {
 }
 
 .reply-preview-sender {
-  font-size: 12.5px;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #00a884;
   margin-bottom: 2px;
 }
 
 .reply-preview-text {
-  font-size: 13px;
+  font-size: 0.82rem;
   color: #aebac1;
   white-space: nowrap;
   overflow: hidden;
@@ -924,7 +960,7 @@ body {
   background: transparent;
   border: none;
   color: #8696a0;
-  font-size: 18px;
+  font-size: 1.1rem;
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 50%;
@@ -936,7 +972,7 @@ body {
 }
 
 .msg-sender {
-  font-size: 12px;
+  font-size: 0.78rem;
   font-weight: bold;
   color: #53bdeb;
   margin-bottom: 3px;
@@ -952,12 +988,12 @@ body {
 }
 
 .msg-time {
-  font-size: 11px;
+  font-size: 0.7rem;
   color: rgba(233, 237, 239, 0.65);
 }
 
 .check-mark {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #8696a0;
   font-weight: bold;
   letter-spacing: -2px;
@@ -971,15 +1007,17 @@ body {
   margin-top: 6px;
   border-radius: 8px;
   overflow: hidden;
+  width: 100%;
   max-width: 100%;
 }
 
 .media-box img, .media-box video {
+  width: 100%;
   max-width: 100%;
-  width: auto;
   max-height: 260px;
   display: block;
   border-radius: 6px;
+  object-fit: cover;
 }
 
 .media-box a {
@@ -991,25 +1029,26 @@ body {
   color: #e9edef;
   text-decoration: none;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 0.82rem;
 }
 
 .audio-box {
   margin-top: 6px;
+  width: 100%;
   max-width: 100%;
 }
 
 .audio-box audio {
   width: 100%;
-  max-width: 240px;
   height: 36px;
 }
 
 /* --- INPUT AREA --- */
 #input-area {
-  min-height: 62px;
+  min-height: 9%;
+  width: 100%;
   background: #202c33;
-  padding: 8px 10px;
+  padding: 1.5% 2%;
   display: flex;
   align-items: center;
   position: relative;
@@ -1019,13 +1058,14 @@ body {
 .input-controls-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 1.5%;
   width: 100%;
   min-width: 0;
 }
 
 .input-controls-row input[type="text"] {
   flex: 1;
+  width: 65%;
   min-width: 0;
   padding: 10px 12px;
   border-radius: 8px;
@@ -1040,7 +1080,7 @@ body {
   background: #00a884;
   color: #111b21;
   border: none;
-  padding: 10px 14px;
+  padding: 10px 3.5%;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
@@ -1055,7 +1095,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 2%;
   width: 100%;
 }
 
@@ -1087,13 +1127,13 @@ body {
 
 #recording-timer {
   font-family: monospace;
-  font-size: 14px;
+  font-size: 0.88rem;
   font-weight: bold;
   color: #e9edef;
 }
 
 .rec-label {
-  font-size: 13px;
+  font-size: 0.82rem;
   color: #8696a0;
   white-space: nowrap;
   overflow: hidden;
@@ -1107,7 +1147,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   display: flex;
@@ -1124,9 +1164,10 @@ body {
 .emoji-picker {
   display: none;
   position: absolute;
-  bottom: 68px;
-  left: 12px;
-  max-width: calc(100vw - 24px);
+  bottom: 110%;
+  left: 2%;
+  width: 85%;
+  max-width: 320px;
   background: #233138;
   border: 1px solid #2a3942;
   border-radius: 10px;
@@ -1138,7 +1179,7 @@ body {
 }
 
 .emoji-picker span {
-  font-size: 20px;
+  font-size: 1.25rem;
   cursor: pointer;
   padding: 4px;
   text-align: center;
@@ -1153,6 +1194,8 @@ body {
 .status-viewer {
   position: fixed;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 500;
   display: flex;
   align-items: center;
@@ -1162,14 +1205,16 @@ body {
 .status-viewer-backdrop {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.88);
 }
 
 .status-viewer-card {
   position: relative;
-  width: 420px;
-  max-width: 95vw;
-  height: 86dvh;
+  width: 92%;
+  max-width: 440px;
+  height: 88%;
   background: #111b21;
   border-radius: 12px;
   overflow: hidden;
@@ -1181,9 +1226,9 @@ body {
 
 .status-progress-wrapper {
   position: absolute;
-  top: 8px;
-  left: 10px;
-  right: 10px;
+  top: 2%;
+  left: 3%;
+  right: 3%;
   display: flex;
   gap: 4px;
   z-index: 10;
@@ -1206,7 +1251,8 @@ body {
 .status-viewer-header {
   position: relative;
   z-index: 9;
-  padding: 18px 14px 12px 14px;
+  padding: 5% 4% 3% 4%;
+  width: 100%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent);
   display: flex;
   align-items: center;
@@ -1220,12 +1266,12 @@ body {
 }
 
 #status-user-name {
-  font-size: 14px;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
 #status-user-time {
-  font-size: 11px;
+  font-size: 0.72rem;
   color: #d1d7db;
 }
 
@@ -1233,7 +1279,7 @@ body {
   background: rgba(0, 0, 0, 0.45);
   border: none;
   color: #fff;
-  font-size: 18px;
+  font-size: 1.1rem;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -1242,8 +1288,8 @@ body {
 
 .status-nav-zones {
   position: absolute;
-  top: 64px;
-  bottom: 105px;
+  top: 10%;
+  bottom: 15%;
   left: 0;
   right: 0;
   display: flex;
@@ -1264,6 +1310,7 @@ body {
 
 .status-card-body {
   flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1275,6 +1322,7 @@ body {
 
 .status-card-body img,
 .status-card-body video {
+  width: 100%;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -1286,35 +1334,36 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 7%;
   text-align: center;
-  font-size: 22px;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #ffffff;
 }
 
 .status-caption {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  right: 12px;
+  bottom: 3%;
+  left: 3%;
+  right: 3%;
   background: rgba(0, 0, 0, 0.65);
   padding: 10px 14px;
   border-radius: 8px;
   text-align: center;
-  font-size: 14px;
+  font-size: 0.88rem;
   z-index: 7;
 }
 
 .status-views-bar {
   position: relative;
   z-index: 9;
+  width: 100%;
   background: #182229;
-  padding: 9px 16px;
+  padding: 9px 4%;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 0.82rem;
   color: #e9edef;
   cursor: pointer;
   border-top: 1px solid #2a3942;
@@ -1327,11 +1376,12 @@ body {
 .status-reply-bar {
   position: relative;
   z-index: 9;
+  width: 100%;
   background: #202c33;
-  padding: 10px 10px;
+  padding: 2.5% 3%;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 2%;
 }
 
 .status-reply-bar input {
@@ -1355,7 +1405,7 @@ body {
 .status-quick-emojis button {
   background: transparent;
   border: none;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   padding: 2px;
 }
@@ -1377,11 +1427,13 @@ body {
   display: none;
   position: fixed;
   inset: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.7);
   z-index: 400;
   align-items: center;
   justify-content: center;
-  padding: 14px;
+  padding: 4%;
 }
 
 .modal-backdrop.active {
@@ -1394,12 +1446,12 @@ body {
 
 .modal-card {
   background: #202c33;
-  width: 420px;
-  max-width: 100%;
-  max-height: 88dvh;
+  width: 92%;
+  max-width: 440px;
+  max-height: 88%;
   overflow-y: auto;
   border-radius: 12px;
-  padding: 18px;
+  padding: 4.5%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
@@ -1418,7 +1470,7 @@ body {
   background: transparent;
   border: none;
   color: #8696a0;
-  font-size: 18px;
+  font-size: 1.1rem;
   cursor: pointer;
 }
 
@@ -1434,7 +1486,8 @@ body {
 }
 
 .modal-list, .modal-body-scroll {
-  max-height: 320px;
+  width: 100%;
+  max-height: 60%;
   overflow-y: auto;
 }
 
@@ -1456,7 +1509,7 @@ body {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  font-size: 13px;
+  font-size: 0.82rem;
   color: #aebac1;
 }
 
@@ -1487,11 +1540,11 @@ body {
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 0.82rem;
 }
 
 .file-name-hint {
-  font-size: 12px;
+  font-size: 0.78rem;
   color: #8696a0;
   word-break: break-all;
 }
@@ -1503,18 +1556,14 @@ body {
   }
 
   #nav-rail {
-    width: 56px;
-    padding: 12px 0;
-  }
-
-  .nav-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+    width: 15%;
+    min-width: 50px;
+    max-width: 64px;
+    padding: 3% 0;
   }
 
   #side-panel {
-    width: auto;
+    width: 85%;
     flex: 1;
     min-width: 0;
     border-right: none;
@@ -1522,12 +1571,11 @@ body {
 
   #chat-area {
     display: none;
-    width: auto;
+    width: 100%;
     flex: 1;
     min-width: 0;
   }
 
-  /* Cuando se abre un chat en celular, se muestra el chat y se oculta la barra/panel lateral */
   #app-container.mobile-chat-open #nav-rail,
   #app-container.mobile-chat-open #side-panel {
     display: none;
@@ -1535,19 +1583,16 @@ body {
 
   #app-container.mobile-chat-open #chat-area {
     display: flex;
+    width: 100%;
   }
 
   .msg-row {
     max-width: 86%;
   }
 
-  .quoted-msg-text {
-    max-width: 170px;
-  }
-
   #btn-enviar {
-    padding: 10px 11px;
-    font-size: 13.5px;
+    padding: 10px 3.5%;
+    font-size: 0.85rem;
   }
 
   .status-quick-emojis {
