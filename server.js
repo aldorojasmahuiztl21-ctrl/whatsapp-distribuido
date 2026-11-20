@@ -24,6 +24,47 @@ const mailTransporter = (process.env.MAIL_HOST && process.env.MAIL_USER && proce
     })
   : null;
 
+async function enviarCorreoVerificacion({ to, nombre, codigo }) {
+  if (process.env.RESEND_API_KEY) {
+    const resp = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: process.env.MAIL_FROM || 'WhatsApp Web Distribuido <onboarding@resend.dev>',
+        to: [to],
+        subject: 'Código de verificación - WhatsApp Web Distribuido',
+        html: `<p>Hola <strong>${nombre}</strong>,</p><p>Tu código de verificación es: <strong>${codigo}</strong></p>`
+      })
+    });
+
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok) {
+      throw new Error(data.message || `Error HTTP ${resp.status} al enviar correo con Resend`);
+    }
+    return;
+  }
+
+  if (mailTransporter) {
+    await Promise.race([
+      mailTransporter.sendMail({
+        from: process.env.MAIL_FROM || process.env.MAIL_USER,
+        to,
+        subject: 'Código de verificación - WhatsApp Web Distribuido',
+        text: `Hola ${nombre}, tu código de verificación es: ${codigo}`
+      }),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Tiempo de espera de correo agotado')), 4000)
+      )
+    ]);
+    return;
+  }
+
+  throw new Error('No hay servicio de correo configurado');
+}
+
 const PUERTO = process.env.PORT || process.argv[2] || 5001;
 const NOMBRE_NODO = `Nodo-${PUERTO}`;
 
@@ -196,32 +237,18 @@ app.post('/api/auth/solicitar-codigo', async (req, res) => {
       return res.status(400).json({ error: 'El nombre, teléfono o correo ya están registrados.' });
     }
 
-    if (mailTransporter) {
-      try {
-        await Promise.race([
-          mailTransporter.sendMail({
-            from: process.env.MAIL_FROM || process.env.MAIL_USER,
-            to: correo,
-            subject: 'Código de verificación - WhatsApp Web Distribuido',
-            text: `Hola ${nombre}, tu código de verificación es: ${codigo}`
-          }),
-          new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('Tiempo de espera de correo agotado')), 4000)
-          )
-        ]);
-        return res.json({ status: 'ok', mensaje: `Código enviado a ${correo}.` });
-      } catch (mailErr) {
-        console.error('Error enviando correo:', mailErr.message);
-        console.log(`🔑 [RESPALDO] Código para ${correo}: ${codigo}`);
-        return res.json({
-          status: 'ok',
-          codigoSimulado: codigo,
-          avisoCorreo: `No se pudo enviar el correo (${mailErr.message}). Usa este código:`
-        });
-      }
+    try {
+      await enviarCorreoVerificacion({ to: correo, nombre, codigo });
+      return res.json({ status: 'ok', mensaje: `Código enviado a ${correo}.` });
+    } catch (mailErr) {
+      console.error('Error enviando correo:', mailErr.message);
+      console.log(`🔑 [RESPALDO] Código para ${correo}: ${codigo}`);
+      return res.json({
+        status: 'ok',
+        codigoSimulado: codigo,
+        avisoCorreo: `No se pudo enviar el correo (${mailErr.message}). Usa este código:`
+      });
     }
-
-    return res.json({ status: 'ok', codigoSimulado: codigo });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
