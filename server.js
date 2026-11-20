@@ -14,6 +14,9 @@ const mailTransporter = (process.env.MAIL_HOST && process.env.MAIL_USER && proce
       host: process.env.MAIL_HOST,
       port: Number(process.env.MAIL_PORT) || 587,
       secure: Number(process.env.MAIL_PORT) === 465,
+      connectionTimeout: 4000,
+      greetingTimeout: 4000,
+      socketTimeout: 5000,
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS
@@ -124,8 +127,6 @@ sub.on('error', (err) => {
   console.error('Error en Redis sub:', err.message);
 });
 
-
-
 sub.subscribe('canal_whatsapp_distribuido', 'canal_eventos_whatsapp');
 sub.on('message', (channel, messageStr) => {
   const data = JSON.parse(messageStr);
@@ -197,12 +198,17 @@ app.post('/api/auth/solicitar-codigo', async (req, res) => {
 
     if (mailTransporter) {
       try {
-        await mailTransporter.sendMail({
-          from: process.env.MAIL_FROM || process.env.MAIL_USER,
-          to: correo,
-          subject: 'Código de verificación - WhatsApp Web Distribuido',
-          text: `Hola ${nombre}, tu código de verificación es: ${codigo}`
-        });
+        await Promise.race([
+          mailTransporter.sendMail({
+            from: process.env.MAIL_FROM || process.env.MAIL_USER,
+            to: correo,
+            subject: 'Código de verificación - WhatsApp Web Distribuido',
+            text: `Hola ${nombre}, tu código de verificación es: ${codigo}`
+          }),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Tiempo de espera de correo agotado')), 4000)
+          )
+        ]);
         return res.json({ status: 'ok', mensaje: `Código enviado a ${correo}.` });
       } catch (mailErr) {
         console.error('Error enviando correo:', mailErr.message);
