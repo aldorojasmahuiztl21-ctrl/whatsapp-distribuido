@@ -25,6 +25,33 @@ const mailTransporter = (process.env.MAIL_HOST && process.env.MAIL_USER && proce
   : null;
 
 async function enviarCorreoVerificacion({ to, nombre, codigo }) {
+  if (process.env.BREVO_API_KEY) {
+    const senderEmail = process.env.MAIL_USER || 'whatsappdistribuido2569@gmail.com';
+    const resp = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'api-key': process.env.BREVO_API_KEY,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        sender: {
+          name: 'WhatsApp Web Distribuido',
+          email: senderEmail
+        },
+        to: [{ email: to, name: nombre }],
+        subject: 'Código de verificación - WhatsApp Web Distribuido',
+        htmlContent: `<p>Hola <strong>${nombre}</strong>,</p><p>Tu código de verificación es: <strong>${codigo}</strong></p>`
+      })
+    });
+
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok) {
+      throw new Error(data.message || `Error HTTP ${resp.status} al enviar correo con Brevo`);
+    }
+    return;
+  }
+
   if (process.env.RESEND_API_KEY) {
     const resp = await fetch('https://api.resend.com/emails', {
       method: 'POST',
