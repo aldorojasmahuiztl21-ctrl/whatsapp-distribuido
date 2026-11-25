@@ -36,11 +36,11 @@ async function enviarCorreoVerificacion({ to, nombre, codigo }) {
       },
       body: JSON.stringify({
         sender: {
-          name: 'WhatsApp Web Distribuido',
+          name: 'WhatsApp ITP Web',
           email: senderEmail
         },
         to: [{ email: to, name: nombre }],
-        subject: 'Código de verificación - WhatsApp Web Distribuido',
+        subject: 'Código de verificación - WhatsApp ITP Web',
         htmlContent: `<p>Hola <strong>${nombre}</strong>,</p><p>Tu código de verificación es: <strong>${codigo}</strong></p>`
       })
     });
@@ -60,9 +60,9 @@ async function enviarCorreoVerificacion({ to, nombre, codigo }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: process.env.MAIL_FROM || 'WhatsApp Web Distribuido <onboarding@resend.dev>',
+        from: process.env.MAIL_FROM || 'WhatsApp ITP Web <onboarding@resend.dev>',
         to: [to],
-        subject: 'Código de verificación - WhatsApp Web Distribuido',
+        subject: 'Código de verificación - WhatsApp ITP Web',
         html: `<p>Hola <strong>${nombre}</strong>,</p><p>Tu código de verificación es: <strong>${codigo}</strong></p>`
       })
     });
@@ -79,7 +79,7 @@ async function enviarCorreoVerificacion({ to, nombre, codigo }) {
       mailTransporter.sendMail({
         from: process.env.MAIL_FROM || process.env.MAIL_USER,
         to,
-        subject: 'Código de verificación - WhatsApp Web Distribuido',
+        subject: 'Código de verificación - WhatsApp ITP Web',
         text: `Hola ${nombre}, tu código de verificación es: ${codigo}`
       }),
       new Promise((_, reject) =>
@@ -137,13 +137,14 @@ async function verificarEsquemaBD() {
     try { await db.query('ALTER TABLE usuarios ADD COLUMN correo VARCHAR(150) NULL'); } catch (_) {}
     try { await db.query('ALTER TABLE usuarios ADD UNIQUE INDEX idx_correo_unico (correo)'); } catch (_) {}
     try { await db.query('ALTER TABLE usuarios ADD COLUMN foto_url VARCHAR(255) NULL'); } catch (_) {}
-    try { await db.query("ALTER TABLE usuarios ADD COLUMN descripcion VARCHAR(150) DEFAULT '¡Hola! Estoy usando WhatsApp Web Distribuido.'"); } catch (_) {}
+    try { await db.query("ALTER TABLE usuarios ADD COLUMN descripcion VARCHAR(150) DEFAULT '¡Hola! Estoy usando WhatsApp ITP Web.'"); } catch (_) {}
     try { await db.query('ALTER TABLE usuarios ADD UNIQUE INDEX idx_nombre_unico (nombre)'); } catch (_) {}
     try { await db.query('ALTER TABLE chat_miembros ADD COLUMN ultimo_leido_id INT DEFAULT 0'); } catch (_) {}
     try { await db.query('ALTER TABLE mensajes ADD COLUMN leido BOOLEAN DEFAULT FALSE'); } catch (_) {}
     try { await db.query('ALTER TABLE mensajes ADD COLUMN respuesta_a_id INT NULL'); } catch (_) {}
     try { await db.query("ALTER TABLE estados ADD COLUMN color_fondo VARCHAR(20) DEFAULT '#005c4b'"); } catch (_) {}
-    await db.query("INSERT IGNORE INTO chats (id, nombre, es_grupo) VALUES (1, 'Grupo SO2 (Distribuido)', TRUE)");
+    await db.query("INSERT IGNORE INTO chats (id, nombre, es_grupo) VALUES (1, 'Grupo ITP', TRUE)");
+    await db.query("UPDATE chats SET nombre = 'Grupo ITP' WHERE id = 1 AND nombre = 'Grupo SO2 (Distribuido)'");
   } catch (err) {
     console.error('Aviso verificando esquema BD:', err.message);
   }
@@ -383,11 +384,11 @@ app.get('/api/usuarios/:usuarioId/chats', async (req, res) => {
       if (chat.es_grupo) {
         const sub = textoPreview
           ? `${chat.ultimoRemitente ? chat.ultimoRemitente + ': ' : ''}${textoPreview}`
-          : 'Chat grupal distribuido';
+          : 'Chat grupal';
 
         resultado.push({
           id: chat.id,
-          nombre: chat.nombre || 'Grupo SO2 (Distribuido)',
+          nombre: chat.nombre || 'Grupo ITP',
           es_grupo: true,
           foto_url: null,
           subtitulo: sub,
