@@ -102,7 +102,7 @@ const db = mysql.createPool({
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'whatsapp_db',
   waitForConnections: true,
-  connectionLimit: 30,
+  connectionLimit: 50,
   ssl: {
     minVersion: 'TLSv1.2',
     rejectUnauthorized: true
@@ -198,19 +198,23 @@ sub.on('error', (err) => {
 
 sub.subscribe('canal_whatsapp_distribuido', 'canal_eventos_whatsapp');
 sub.on('message', (channel, messageStr) => {
-  const data = JSON.parse(messageStr);
-  if (channel === 'canal_whatsapp_distribuido') {
-    io.to(`chat_${data.chatId}`).emit('mensaje_recibido', data);
-    io.emit('actualizar_lista_chats', { chatId: data.chatId });
-  } else if (channel === 'canal_eventos_whatsapp') {
-    if (data.tipo === 'chat_vaciado') {
-      io.to(`chat_${data.chatId}`).emit('chat_vaciado', { chatId: data.chatId });
-    } else if (data.tipo === 'nuevo_chat') {
-      io.emit('actualizar_lista_chats', data);
-    } else if (data.tipo === 'mensajes_leidos') {
-      io.to(`chat_${data.chatId}`).emit('mensajes_leidos', data);
+  try {
+    const data = JSON.parse(messageStr);
+    if (channel === 'canal_whatsapp_distribuido') {
+      io.to(`chat_${data.chatId}`).emit('mensaje_recibido', data);
       io.emit('actualizar_lista_chats', { chatId: data.chatId });
+    } else if (channel === 'canal_eventos_whatsapp') {
+      if (data.tipo === 'chat_vaciado') {
+        io.to(`chat_${data.chatId}`).emit('chat_vaciado', { chatId: data.chatId });
+      } else if (data.tipo === 'nuevo_chat') {
+        io.emit('actualizar_lista_chats', data);
+      } else if (data.tipo === 'mensajes_leidos') {
+        io.to(`chat_${data.chatId}`).emit('mensajes_leidos', data);
+        io.emit('actualizar_lista_chats', { chatId: data.chatId });
+      }
     }
+  } catch (err) {
+    console.error('Error procesando mensaje de Redis:', err.message);
   }
 });
 
